@@ -211,6 +211,8 @@ public function run()
 
 può servire in fase di debug per vedere il sito pieno si deve per prima cosa importare
 ### `use Faker\Generator as Faker`
+### `use App\Models\Movie`
+
 P.S
 tasto 'windos' + '.' = emoji , vengono valutate come stringhe.
 
