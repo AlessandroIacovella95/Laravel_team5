@@ -3,7 +3,7 @@
 @section('main-content')
   <section class="container mt-5">
       <div class="container">    
-        <h1>Books</h1>
+        <h1 class="mb-3">Books</h1>
         <div class="row">
           @foreach ($books as $book)
             <div class="col-lg-4 col-md-6 mb-4">
@@ -14,7 +14,7 @@
                     <strong>Autore:</strong> {{ $book->author }}<br>
                     <strong>Genere:</strong> {{ $book->genre }}<br>
                     <strong>Anno di pubblicazione:</strong> {{ $book->publication_year }}<br>
-                    <strong>Prezzo:</strong> {{ $book->price }}
+                    <strong>Prezzo:</strong> {{ $book->price }} <br>
                     <strong>Trama:</strong> {{ $book->abstract }}
                   </p>
                 </div>
