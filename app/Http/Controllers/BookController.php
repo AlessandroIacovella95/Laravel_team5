@@ -43,11 +43,11 @@ class BookController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+    //  * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return view('books.show', compact('book'));
     }
 
     /**
