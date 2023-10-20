@@ -2,7 +2,10 @@
 
 @section('main-content')
     <div class="container">
-        <h1>Crea un Libro</h1>
+        <a href="{{ route('books.index') }}" role="button" class="btn btn-success mt-3"
+        >Torna alla lista
+        </a>
+        <h1 class="my-3">Crea un Libro</h1>
         <form action="{{ route('books.store') }}" method="POST">
             @csrf
 
@@ -21,7 +24,7 @@
 
 
             <label for="price" class="form-label">Prezzo</label>
-            <input type="number" class="form-control" id="price" name="price" step="0.5" min="5"
+            <input type="number" class="form-control" id="price" name="price" min="5"
                 max="50" />
 
             <label for="abstract" class="form-label">Descrizione</label>

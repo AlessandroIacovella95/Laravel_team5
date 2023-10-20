@@ -2,7 +2,13 @@
 
 @section('main-content')
   <div class="container">
-    <h1>Modifica un Libro</h1>
+    <a href="{{ route('books.index') }}" role="button" class="btn btn-success mt-3"
+        >Torna alla lista
+        </a> 
+    <a href="{{ route('books.show', $book) }}" role="button" class="btn btn-success mt-3"
+        >Dettagli
+    </a> 
+    <h1 class="my-3">Modifica un Libro</h1>
     <form action="{{ route('books.update', $book) }}" method="POST">
       @csrf
       @method('PUT')

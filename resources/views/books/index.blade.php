@@ -2,6 +2,9 @@
 
 @section('main-content')
     <section class="container mt-5">
+        <a href="{{ route('books.create') }}" role="button" class="btn btn-success"
+        >Crea libro
+        </a>
         <table class="table">
             <thead>
                 <tr>
@@ -25,7 +28,10 @@
                         <td>{{ $book->publication_year }}</td>
                         <td>{{ $book->price }}$</td>
                         <td>{{ $book->abstract }}</td>
-                        <td><a href="{{ route('books.show', $book) }}"> Dettaglio </a></td>
+                        <td>
+                            <a href="{{ route('books.show', $book) }}"> Dettaglio </a>
+                            <a href="{{ route('books.edit', $book) }}">Modifica</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
