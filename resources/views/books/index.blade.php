@@ -31,6 +31,31 @@
                         <td>
                             <a href="{{ route('books.show', $book) }}"> Dettaglio </a>
                             <a href="{{ route('books.edit', $book) }}">Modifica</a>
+                            <a href="#" type="button" class="" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$book->id}}">
+                                Elimina
+                              </a>
+        
+                              <div class="modal fade" id="delete-modal-{{$book->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">Elimina elemento</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Vuoi davvero eliminare il libro {{$book->title}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="{{route('books.destroy', $book)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">Elimina</button>
+                                        </form>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annulla</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </td>
                     </tr>
                 @endforeach
