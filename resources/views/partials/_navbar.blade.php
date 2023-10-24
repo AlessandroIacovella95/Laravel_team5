@@ -9,17 +9,17 @@
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {{ Route::currentRouteName() == 'home' ? 'fw-bold' : '' }}"
-                        href="{{ route('home') }}" aria-current="page">Home<span
+                        href="{{ route('home') }}" aria-current="page">Ciao<span
+                        class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::currentRouteName() == 'admin.books.index' ? 'fw-bold' : '' }}"
+                        href="{{ route('admin.books.index') }}" aria-current="page">Books<span
                             class="visually-hidden">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'books.index' ? 'fw-bold' : '' }}"
-                        href="{{ route('books.index') }}" aria-current="page">Books<span
-                            class="visually-hidden">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Route::currentRouteName() == 'books.create' ? 'fw-bold' : '' }}"
-                        href="{{ route('books.create') }}" aria-current="page">Crea<span
+                    <a class="nav-link {{ Route::currentRouteName() == 'admin.books.create' ? 'fw-bold' : '' }}"
+                        href="{{ route('admin.books.create') }}" aria-current="page">Crea<span
                             class="visually-hidden">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">

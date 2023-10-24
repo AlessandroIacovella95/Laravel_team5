@@ -2,7 +2,7 @@
 
 @section('main-content')
     <section class="container mt-5">
-        <a href="{{ route('books.create') }}" role="button" class="btn btn-success"
+        <a href="{{ route('admin.books.create') }}" role="button" class="btn btn-success"
         >Crea libro
         </a>
         <table class="table">
@@ -29,8 +29,8 @@
                         <td>{{ $book->price }}$</td>
                         <td>{{ $book->abstract }}</td>
                         <td>
-                            <a href="{{ route('books.show', $book) }}"> Dettaglio </a>
-                            <a href="{{ route('books.edit', $book) }}">Modifica</a>
+                            <a href="{{ route('admin.books.show', $book) }}"> Dettaglio </a>
+                            <a href="{{ route('admin.books.edit', $book) }}">Modifica</a>
                             <a href="#" type="button" class="" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$book->id}}">
                                 Elimina
                               </a>
@@ -46,7 +46,7 @@
                                       Vuoi davvero eliminare il libro {{$book->title}}?
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{route('books.destroy', $book)}}" method="POST">
+                                        <form action="{{route('admin.books.destroy', $book)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger">Elimina</button>

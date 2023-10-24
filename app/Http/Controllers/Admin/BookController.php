@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Book;
 
 class BookController extends Controller
@@ -16,7 +17,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 
     /**
@@ -26,7 +27,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        return view('admin.books.create');
     }
 
     /**
@@ -37,11 +38,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $this->validation($request->all());
         $book = new Book;
         $book->fill($data);
         $book->save();
-        return redirect()->route('books.show', $book);
+        return redirect()->route('admin.books.show', $book);
     }
 
     /**
@@ -52,7 +53,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        return view('admin.books.show', compact('book'));
     }
 
     /**
@@ -63,7 +64,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('books.edit', compact('book'));
+        return view('admin.books.edit', compact('book'));
     }
 
     /**
@@ -75,9 +76,9 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $data = $request->all();
+        $data = $this->validation($request->all(), $book->id);
         $book->update($data);
-        return redirect()->route('books.show', $book);
+        return redirect()->route('admin.books.show', $book);
     }
 
     /**
@@ -89,6 +90,42 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('books.index');
+        return redirect()->route('admin.books.index');
+    }
+
+    private function validation($data)
+    {
+        $validator = Validator::make(
+            $data,
+            [
+                'title' => 'required|string|max:20',
+                'author' => "required|string",
+                "genre" => "required|string",
+                "publication_year" => "required|integer",
+                "price" => "required|integer",
+                "abstract" => "nullable|string"
+            ],
+            [
+                'title.required' => 'Il titolo è obbligatorio',
+                'title.string' => 'Il titolo deve essere una stringa',
+                'title.max' => 'Il titolo deve massimo di 20 caratteri',
+
+                'author.required' => 'L\'autore è obbligatorio',
+                'author.string' => 'L\'autore deve essere una stringa',
+
+                'genre.required' => 'Il genere è obbligatorio',
+                'genre.string' => 'Il genere deve essere una stringa',
+
+                'publication_year.required' => 'L\'anno di pubblicazione è obbligatorio',
+                'publication_year.integer' => 'L\'anno di pubblicazione deve essere un numero',
+
+                'price.required' => 'Il prezzo è obbligatorio',
+                'price.integer' => 'Il prezzo deve essere un numero',
+
+                'abstract.string' => 'La descrizione deve essere una stringa',
+
+            ]
+        )->validate();
+        return $validator;
     }
 }

@@ -46,6 +46,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'admin.books.index' ? 'fw-bold' : '' }}"
+                                href="{{ route('admin.books.index') }}" aria-current="page">Books<span
+                                class="visually-hidden">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteName() == 'admin.books.create' ? 'fw-bold' : '' }}"
+                                href="{{ route('admin.books.create') }}" aria-current="page">Crea<span
+                                class="visually-hidden">(current)</span></a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -86,7 +96,7 @@
         </nav>
 
         <main class="">
-            @yield('content')
+            @yield('main-content')
         </main>
     </div>
 </body>
