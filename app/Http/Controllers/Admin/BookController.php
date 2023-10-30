@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+        $genres = Genre::all();
+
+        return view('admin.books.create', compact('genres'));
     }
 
     /**
@@ -64,7 +67,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('admin.books.edit', compact('book'));
+        $genres = Genre::all();
+        return view('admin.books.edit', compact('book', 'genres'));
     }
 
     /**
@@ -100,9 +104,9 @@ class BookController extends Controller
             [
                 'title' => 'required|string|max:20',
                 'author' => "required|string",
-                "genre" => "required|string",
+                'genre_id' => 'nullable|exists:genres,id',
                 "publication_year" => "required|integer",
-                "price" => "required|integer",
+                "price" => "required",
                 "abstract" => "nullable|string"
             ],
             [
@@ -113,14 +117,13 @@ class BookController extends Controller
                 'author.required' => 'L\'autore è obbligatorio',
                 'author.string' => 'L\'autore deve essere una stringa',
 
-                'genre.required' => 'Il genere è obbligatorio',
-                'genre.string' => 'Il genere deve essere una stringa',
+                'genre.exists' => 'Il genere deve appartenere alla lista dei generi',
 
                 'publication_year.required' => 'L\'anno di pubblicazione è obbligatorio',
                 'publication_year.integer' => 'L\'anno di pubblicazione deve essere un numero',
 
                 'price.required' => 'Il prezzo è obbligatorio',
-                'price.integer' => 'Il prezzo deve essere un numero',
+
 
                 'abstract.string' => 'La descrizione deve essere una stringa',
 

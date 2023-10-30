@@ -17,39 +17,50 @@
         @endif
         <form action="{{ route('admin.books.store') }}" method="POST">
             @csrf
-
+            {{-- Titolo --}}
             <label for="title" class="form-label">Titolo</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
                 value="{{ old('title') }}" />
             @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            {{-- Autore --}}
             <label for="author" class="form-label">Autore</label>
             <input type="text" class="form-control @error('author') is-invalid @enderror" id="author" name="author"
                 value="{{ old('author') }}" />
             @error('author')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
-
-            <label for="genre" class="form-label">Genere</label>
-            <input type="text" class="form-control @error('genre') is-invalid @enderror" id="genre" name="genre"
-                value="{{ old('genre') }}" />
-            @error('genre')
-                <div class="invalid-feedback">{{ $message }}</div>
+            {{-- Genere --}}
+            <label for="genre_id" class="form-label">Genere</label>
+            <select name="genre_id" id="genre_id" class="form-select @error('genre_id') is-invalid @enderror">
+                <option value="">Nessun genere</option>
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}" @if (old('genre_id') == $genre->id) selected @endif>
+                        {{ $genre->label }}
+                    </option>
+                @endforeach
+            </select>
+            @error('genre_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
             @enderror
+            {{-- Anno di pubblicazione --}}
             <label for="publication_year" class="form-label">Anno di pubblicazione</label>
             <input type="number" class="form-control @error('publication_year') is-invalid @enderror" id="publication_year"
                 name="publication_year" min="1500" max="2023" value="{{ old('publication_year') }}" />
             @error('publication_year')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
-
+            {{-- Prezzo --}}
             <label for="price" class="form-label">Prezzo</label>
             <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
                 value="{{ old('price') }}" />
             @error('price')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            {{-- Descrizione --}}
             <label for="abstract" class="form-label">Descrizione</label>
             <input type="text" class="form-control @error('abstract') is-invalid @enderror" id="abstract"
                 name="abstract" value="{{ old('abstract') }}" />

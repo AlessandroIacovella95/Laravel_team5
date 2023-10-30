@@ -28,7 +28,7 @@ class BooksTableSeeder extends Seeder
             $book->genre_id = $genre_id;
             $book->title = $faker->words(5, true);
             $book->author = $faker->firstNameMale() . " " . $faker->lastName();
-            $book->genre = $faker->words(2, true);
+
             $book->publication_year = $faker->year();
             $book->price = $faker->randomFloat(1, 10, 50);
             $book->abstract = $faker->paragraph(3);
