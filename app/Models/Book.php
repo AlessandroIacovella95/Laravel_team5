@@ -17,4 +17,9 @@ class Book extends Model
         "price",
         "abstract"
     ];
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
 }
