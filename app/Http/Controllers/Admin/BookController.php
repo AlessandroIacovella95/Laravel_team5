@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +19,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::paginate(12);
         return view('admin.books.index', compact('books'));
     }
 
@@ -39,9 +41,9 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * *@return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $data = $this->validation($request->all());
+        $data = $request->validated();
         $book = new Book;
         $book->fill($data);
         $book->save();
@@ -78,9 +80,10 @@ class BookController extends Controller
      * @param  int  $id
      * *@return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $data = $this->validation($request->all(), $book->id);
+        $data = $request->validated();
+
         $book->update($data);
         return redirect()->route('admin.books.show', $book);
     }
@@ -95,39 +98,5 @@ class BookController extends Controller
     {
         $book->delete();
         return redirect()->route('admin.books.index');
-    }
-
-    private function validation($data)
-    {
-        $validator = Validator::make(
-            $data,
-            [
-                'title' => 'required|string|max:100',
-                'author' => "required|string",
-                'genre_id' => 'nullable|exists:genres,id',
-                "publication_year" => "required|integer",
-                "price" => "required",
-                "abstract" => "nullable|string"
-            ],
-            [
-                'title.required' => 'Il titolo è obbligatorio',
-                'title.string' => 'Il titolo deve essere una stringa',
-                'title.max' => 'Il titolo deve massimo di 100 caratteri',
-
-                'author.required' => 'L\'autore è obbligatorio',
-                'author.string' => 'L\'autore deve essere una stringa',
-
-                'genre.exists' => 'Il genere deve appartenere alla lista dei generi',
-
-                'publication_year.required' => 'L\'anno di pubblicazione è obbligatorio',
-                'publication_year.integer' => 'L\'anno di pubblicazione deve essere un numero',
-
-                'price.required' => 'Il prezzo è obbligatorio',
-
-                'abstract.string' => 'La descrizione deve essere una stringa',
-
-            ]
-        )->validate();
-        return $validator;
     }
 }
