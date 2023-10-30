@@ -65,4 +65,6 @@
             </tbody>
         </table>
     </section>
+
+    {{ $books->links('pagination::bootstrap-5') }}
 @endsection
