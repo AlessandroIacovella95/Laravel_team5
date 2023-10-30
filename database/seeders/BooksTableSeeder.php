@@ -20,7 +20,7 @@ class BooksTableSeeder extends Seeder
         $genres = Genre::all()->pluck('id')->toArray();
         $genres[] = null;
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $genre_id = $faker->randomElement($genres);
 
             $book = new Book();
