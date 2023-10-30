@@ -2,11 +2,15 @@
 
 @section('main-content')
     <div class="container">
-        <a href="{{ route('admin.books.index') }}" role="button" class="btn btn-success mt-3">Torna alla lista
+        {{-- Bottone Torna alla lista --}}
+        <a href="{{ route('admin.books.index') }}" role="button" class="btn btn-dark my-3">
+            <i class="fa-regular fa-circle-left me-1 " style="color: #fafafa;"></i>Torna alla lista
         </a>
-        <a href="{{ route('admin.books.show', $book) }}" role="button" class="btn btn-success mt-3">Dettagli
-        </a>
-        <h1 class="my-3">Modifica un Libro</h1>
+        {{-- Bottone Dettaglio --}}
+        <a class="btn btn-success my-3" href="{{ route('admin.books.show', $book) }}"><i class="fa-solid fa-circle-info me-1"
+                style="color: #ffffff;"></i> Dettaglio </a>
+        {{-- Titolo --}}
+        <h1 class="mb-3 text-center">Modifica Libro</h1>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <h4>Correggi i seguenti errori per proseguire:</h4>
@@ -17,11 +21,11 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('admin.books.update', $book) }}" method="POST">
+        <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3">
             @csrf
             @method('PUT')
             {{-- Titolo --}}
-            <div class="col-12 mt-3"> <label for="title" class="form-label">Titolo</label>
+            <div class="col-6 mt-3 fw-bold"><label for="title" class="form-label">Titolo</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"
                     name="title" value="{{ old('title') ?? $book->title }}" />
                 @error('title')
@@ -29,7 +33,7 @@
                 @enderror
             </div>
             {{-- Autore --}}
-            <div class="col-12 mt-3"> <label for="author" class="form-label">Autore</label>
+            <div class="col-6 mt-3 fw-bold"> <label for="author" class="form-label">Autore</label>
                 <input type="text" class="form-control @error('author') is-invalid @enderror" id="author"
                     name="author" value="{{ old('author') ?? $book->author }}" />
                 @error('author')
@@ -37,7 +41,7 @@
                 @enderror
             </div>
             {{-- Genere --}}
-            <div class="col-12 mt-3"> <label for="genre_id" class="form-label">Genere</label>
+            <div class="col-4 mt-3 fw-bold"> <label for="genre_id" class="form-label">Genere</label>
                 <select name="genre_id" id="genre_id" class="form-select @error('genre_id') is-invalid @enderror">
                     <option value="">Nessun genere</option>
                     @foreach ($genres as $genre)
@@ -54,7 +58,7 @@
                 </div>
             @enderror
             {{-- Anno di pubblicazione --}}
-            <div class="col-12 mt-3"> <label for="publication_year" class="form-label">Anno di pubblicazione</label>
+            <div class="col-4 mt-3 fw-bold"> <label for="publication_year" class="form-label">Anno di pubblicazione</label>
                 <input type="number" class="form-control @error('publication_year') is-invalid @enderror"
                     id="publication_year" name="publication_year"
                     value="{{ old('publication_year') ?? $book->publication_year }}" />
@@ -63,7 +67,7 @@
                 @enderror
             </div>
             {{-- Prezzo --}}
-            <div class="col-12 mt-3"> <label for="price" class="form-label">Prezzo</label>
+            <div class="col-4 mt-3 fw-bold"> <label for="price" class="form-label">$ Prezzo</label>
                 <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
                     name="price" value="{{ old('price') ?? $book->price }}" />
                 @error('price')
@@ -71,7 +75,7 @@
                 @enderror
             </div>
             {{-- Descrizione --}}
-            <div class="col-12 mt-3"> <label for="abstract" class="form-label">Descrizione</label>
+            <div class="col-12 mt-3 fw-bold"> <label for="abstract" class="form-label">Descrizione</label>
                 <input type="text" class="form-control @error('abstract') is-invalid @enderror" id="abstract"
                     name="abstract" value="{{ old('abstract') ?? $book->abstract }}" />
                 @error('abstract')
@@ -79,7 +83,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary my-3">Salva</button>
+            <button type="submit" class="btn btn-primary my-3 w-100">Salva</button>
         </form>
     </div>
 @endsection
