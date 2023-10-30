@@ -102,7 +102,7 @@ class BookController extends Controller
         $validator = Validator::make(
             $data,
             [
-                'title' => 'required|string|max:20',
+                'title' => 'required|string|max:100',
                 'author' => "required|string",
                 'genre_id' => 'nullable|exists:genres,id',
                 "publication_year" => "required|integer",
@@ -112,7 +112,7 @@ class BookController extends Controller
             [
                 'title.required' => 'Il titolo è obbligatorio',
                 'title.string' => 'Il titolo deve essere una stringa',
-                'title.max' => 'Il titolo deve massimo di 20 caratteri',
+                'title.max' => 'Il titolo deve massimo di 100 caratteri',
 
                 'author.required' => 'L\'autore è obbligatorio',
                 'author.string' => 'L\'autore deve essere una stringa',
@@ -123,7 +123,6 @@ class BookController extends Controller
                 'publication_year.integer' => 'L\'anno di pubblicazione deve essere un numero',
 
                 'price.required' => 'Il prezzo è obbligatorio',
-
 
                 'abstract.string' => 'La descrizione deve essere una stringa',
 

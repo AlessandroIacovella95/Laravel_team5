@@ -17,7 +17,7 @@ class BooksTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        $genres = Genre::all()->pluck('id');
+        $genres = Genre::all()->pluck('id')->toArray();
         $genres[] = null;
 
         for ($i = 0; $i < 5; $i++) {
