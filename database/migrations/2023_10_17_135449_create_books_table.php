@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('author', 100);
             $table->integer('publication_year');
             $table->float('price', 5, 2);
-            $table->text('abstract');
+            $table->text('abstract')->nullable();
             $table->timestamps();
         });
     }

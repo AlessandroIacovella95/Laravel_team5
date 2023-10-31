@@ -78,6 +78,4 @@
         </table>
         {{ $books->links('pagination::bootstrap-5') }}
     </section>
-
-    {{ $books->links('pagination::bootstrap-5') }}
 @endsection
