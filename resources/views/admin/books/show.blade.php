@@ -18,6 +18,17 @@
                 <li class="list-group-item"><strong>Autore: </strong> {{ $book->author }}</li>
                 <li class="list-group-item"><strong>Genere: </strong>
                     {{ $book->genre ? $book->genre->label : 'Nessun genere' }}</li>
+                <li class="list-group-item"><strong>Tipo: </strong>
+                    @forelse ($book->types as $type)
+                        {{ $type->label }} @unless ($loop->last)
+                            ,
+                        @else
+                            .
+                        @endunless
+                    @empty
+                        Nessun tipo associato
+                    @endforelse
+                </li>
                 <li class="list-group-item"><strong>Anno di pubblicazione: </strong> {{ $book->publication_year }}</li>
                 <li class="list-group-item"><strong>Prezzo: </strong> {{ $book->price }}$</li>
                 <li class="list-group-item"><strong>Descrizione:</strong> {{ $book->abstract }}</li>

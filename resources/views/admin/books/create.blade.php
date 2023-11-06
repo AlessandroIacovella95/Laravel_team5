@@ -51,6 +51,28 @@
                     </div>
                 @enderror
             </div>
+
+            <div class="container mt-4">
+                <label for="type " class="form-label fw-bold">Tipologia</label>
+                <div class="form-check @error('types') is-invalid @enderror p-0">
+                    @foreach ($types as $type)
+                        <input type="checkbox" id="type-{{ $type->id }}" value="{{ $type->id }}" name="types[]"
+                            class="form-check-control" @if (in_array($type->id, old('types', $book_types ?? []))) checked @endif>
+                        <label for="type-{{ $type->id }}">
+                            {{ $type->label }}
+                        </label>
+                        <br>
+                    @endforeach
+                </div>
+
+                @error('types')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+
             {{-- Anno di pubblicazione --}}
             <div class="col-4 mt-3 fw-bold"> <label for="publication_year" class="form-label">Anno di pubblicazione</label>
                 <input type="number" class="form-control @error('publication_year') is-invalid @enderror"

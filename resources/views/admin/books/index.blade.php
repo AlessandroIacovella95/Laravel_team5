@@ -17,6 +17,7 @@
                     <th scope="col">Titolo</th>
                     <th scope="col">Autore</th>
                     <th scope="col">Genere</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Pubblicazione</th>
                     <th scope="col">Prezzi</th>
                     <th scope="col">Descrizione</th>
@@ -30,6 +31,17 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->genre?->label }}</td>
+                        <td>
+                            @forelse($book->types as $type)
+                                {{ $type->label }} @unless ($loop->last)
+                                    ,
+                                @else
+                                    .
+                                @endunless
+                            @empty
+                                -
+                            @endforelse
+                        </td>
                         <td>{{ $book->publication_year }}</td>
                         <td>{{ $book->price }}$</td>
                         <td>{{ $book->abstract }}</td>

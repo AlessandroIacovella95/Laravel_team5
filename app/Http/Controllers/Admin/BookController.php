@@ -7,8 +7,11 @@ use App\Http\Requests\UpdateBookRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Book;
+use App\Models\Type;
+
 
 class BookController extends Controller
 {
@@ -31,8 +34,9 @@ class BookController extends Controller
     public function create()
     {
         $genres = Genre::all();
+        $types = Type::orderBy('label')->get();
 
-        return view('admin.books.create', compact('genres'));
+        return view('admin.books.create', compact('genres', 'types'));
     }
 
     /**
@@ -47,6 +51,8 @@ class BookController extends Controller
         $book = new Book;
         $book->fill($data);
         $book->save();
+        if (Arr::exists($data, "types")) $book->types()->attach($data["types"]);
+
         return redirect()->route('admin.books.show', $book);
     }
 
@@ -70,7 +76,10 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $genres = Genre::all();
-        return view('admin.books.edit', compact('book', 'genres'));
+        $types = Type::orderBy('label')->get();
+        $book_types = $book->types->pluck('id')->toArray();
+
+        return view('admin.books.edit', compact('book', 'genres', 'types', 'book_types'));
     }
 
     /**
@@ -85,6 +94,10 @@ class BookController extends Controller
         $data = $request->validated();
 
         $book->update($data);
+        if (Arr::exists($data, "types"))
+            $book->types()->sync($data["types"]);
+        else
+            $book->types()->detach();
         return redirect()->route('admin.books.show', $book);
     }
 
@@ -96,6 +109,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
+        $book->types()->detach();
+
         $book->delete();
         return redirect()->route('admin.books.index');
     }
